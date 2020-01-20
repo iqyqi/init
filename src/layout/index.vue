@@ -1,16 +1,16 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
-    <div :class="{hasTagsView:needTagsView}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+    <navbar />
+    <div class="contain-wrapper">
+      <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
+      <sidebar class="sidebar-container" />
+      <div :class="{hasTagsView:needTagsView}" class="main-container">
         <tags-view v-if="needTagsView" />
+        <app-main />
+        <right-panel v-if="showSettings">
+          <settings />
+        </right-panel>
       </div>
-      <app-main />
-      <right-panel v-if="showSettings">
-        <settings />
-      </right-panel>
     </div>
   </div>
 </template>
@@ -66,7 +66,13 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-
+    display: flex;
+    flex-direction: column;
+    .contain-wrapper{
+      flex: 1;
+      /* margin: auto 0; */
+      overflow-y: auto;
+    }
     &.mobile.openSidebar {
       position: fixed;
       top: 0;
